@@ -37,6 +37,16 @@ void Snake::setPos(int x, int y) {
 	_x = x, _y = y;
 }
 
+bool Snake::checkTail(int x, int y) const {
+	if (getX() == x && getY() == y) {
+		return true;
+	} else if (_prev != nullptr) {
+		return _prev->checkTail(x, y);
+	} else {
+		return false;
+	}
+}
+
 int Snake::getX() const {
 	return _x;
 }
