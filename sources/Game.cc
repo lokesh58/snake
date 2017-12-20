@@ -1,4 +1,6 @@
 #include "../headers/Game.h"
+#include <iostream>
+#include <conio.h>
 
 namespace {
 	constexpr int width = 200;
@@ -30,7 +32,41 @@ void Game::reset() {
 }
 
 void Game::gameLoop() {
-	//TODO
+	bool gameOver = false;
+
+	while (!gameOver) {
+		input();
+		display();
+	}
+}
+
+void Game::input() {
+	if (kbhit()) {
+		switch(getch()) {
+			case 'a':
+			case 'A':
+				head->move(-1, 0);
+				break;
+			case 'd':
+			case 'D':
+				head->move(1, 0);
+				break;
+			case 'w':
+			case 'W':
+				head->move(0, -1);
+				break;
+			case 's':
+			case 'S':
+				head->move(0, 1);
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+void Game::display() {
+
 }
 
 int Game::getRandomX() {
