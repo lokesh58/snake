@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
 
 class Game {
 	public:
@@ -8,3 +9,5 @@ class Game {
 
 	private:
 };
+
+#endif //GAME_H
