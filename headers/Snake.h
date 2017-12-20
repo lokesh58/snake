@@ -2,17 +2,17 @@
 #define SNAKE_H
 
 #include <memory>
-#include <utility>
 
 class Snake {
-	using Direction = std::pair<int, int>;
-
 	public:
 		Snake();
 		Snake(int x, int y);
 		~Snake();
 		void addTail();
-		void move(Direction delta);
+		void move(int dx, int dy);
+
+		int getX() const;
+		int getY() const;
 
 	private:
 		void setPos(int x, int y);
