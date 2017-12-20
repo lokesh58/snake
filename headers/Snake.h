@@ -8,8 +8,10 @@ class Snake {
 		Snake();
 		Snake(int x, int y);
 		~Snake();
+
 		void addTail();
 		void move(int dx, int dy);
+		bool checkTail(int x, int y) const;
 
 		int getX() const;
 		int getY() const;
