@@ -17,6 +17,13 @@ void Game::play() {
 	//TODO
 }
 
+void Game::generateFood() {
+	do {
+		foodX = getRandomX();
+		foodY = getRandomY();
+	} while (head->checkTail(foodX, foodY));
+}
+
 void Game::reset() {
 	head = std::make_unique<Snake>(width/2, height/2);
 	
