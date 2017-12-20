@@ -15,6 +15,7 @@ class Game {
 		void gameLoop();
 
 		std::unique_ptr<Snake> head;
+		int foodX, foodY;
 };
 
 #endif //GAME_H
