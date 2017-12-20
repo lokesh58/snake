@@ -15,6 +15,8 @@ class Game {
 		void generateFood();
 		void reset();
 		void gameLoop();
+		void input();
+		void display();
 
 		int getRandomX();
 		int getRandomY();
