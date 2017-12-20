@@ -1,4 +1,4 @@
-#include "Snake.h"
+#include "../headers/Snake.h"
 
 Snake::Snake() : _x(0), _y(0), _prev(nullptr) {
 	//ctor
