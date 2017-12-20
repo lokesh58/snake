@@ -11,3 +11,11 @@ Game::~Game() {
 void Game::play() {
 	//TODO
 }
+
+void Game::reset() {
+	//TODO
+}
+
+void Game::gameLoop() {
+	//TODO
+}
