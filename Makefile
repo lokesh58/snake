@@ -1,5 +1,5 @@
 headers=headers/*.h
-sources=headers/*.cc
+sources=sources/*.cc
 
 all: main object
 	g++ *.o -o snake -std=c++14
