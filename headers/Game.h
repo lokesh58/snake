@@ -12,6 +12,7 @@ class Game {
 		void play();
 
 	private:
+		void generateFood();
 		void reset();
 		void gameLoop();
 
