@@ -21,7 +21,7 @@ class Game {
 		std::unique_ptr<Snake> head;
 		int foodX, foodY;
 
-		std::uniform_int_distriubution<int> _ux, _uy;
+		std::uniform_int_distribution<int> _ux, _uy;
 		std::default_random_engine _e;
 };
 
