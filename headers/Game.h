@@ -7,4 +7,4 @@ class Game {
 		void play();
 
 	private:
-}
+};
