@@ -2,14 +2,14 @@
 #include <iostream>
 
 namespace {
-	constexpr int width = 200;
-	constexpr int height = 200;
+	constexpr int width = 20;
+	constexpr int height = 20;
 }
 
 Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false) {
 	int choice;
 	do {
-		std::cout << "----------WELCOME--TO--SNAKE--GAME------------\n";
+		std::cout << "\n----------WELCOME--TO--SNAKE--GAME------------\n";
 		std::cout << "1) Play\n";
 		std::cout << "2) How to play\n";
 		std::cout << "3) Exit\n";
@@ -103,7 +103,31 @@ void Game::logic() {
 }
 
 void Game::display() {
-	//TODO
+	for (int i = 0; i < width+2; ++i) {
+		std::cout << '#';
+	}
+	std::cout << '\n';
+
+	for (int y = 0; y < height; ++y) {
+		std::cout << '#';
+		for (int x = 0; x < width; ++x) {
+			if (x == head->getX() && y == head->getY()) {
+				std::cout << 'O';
+			} else if (head->checkTail(x, y)) {
+				std::cout << 'o';
+			} else if (x == foodX && y == foodY) {
+				std::cout << 'F';
+			} else {
+				std::cout << ' ';
+			}
+		}
+		std::cout << "#\n";
+	}
+
+	for (int i = 0; i < width+2; ++i) {
+		std::cout << '#';
+	}
+	std::cout << '\n';
 }
 
 int Game::getRandomX() {
