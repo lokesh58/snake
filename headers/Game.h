@@ -5,6 +5,10 @@
 #include <random>
 #include "Snake.h"
 
+enum Direction {
+	none, up, down, left, right
+};
+
 class Game {
 	public:
 		Game();
@@ -16,6 +20,7 @@ class Game {
 		void reset();
 		void gameLoop();
 		void input();
+		void logic();
 		void display();
 
 		int getRandomX();
@@ -23,6 +28,8 @@ class Game {
 
 		std::unique_ptr<Snake> head;
 		int foodX, foodY;
+		Direction dir;
+		bool gameOver;
 
 		std::uniform_int_distribution<int> _ux, _uy;
 		std::default_random_engine _e;
