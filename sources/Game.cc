@@ -41,8 +41,9 @@ void Game::gameLoop() {
 }
 
 void Game::input() {
-	if (1/*if a key is hit*/) {
-		switch(std::cin.get()) {
+	char ch;
+	if ((ch = std::cin.get())/*if a key is hit*/) {
+		switch(ch) {
 			case 75:
 				if (dir != right) {
 					dir = left;
