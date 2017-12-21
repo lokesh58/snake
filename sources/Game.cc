@@ -7,7 +7,30 @@ namespace {
 }
 
 Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false) {
-	//ctor
+	int choice;
+	do {
+		std::cout << "----------WELCOME--TO--SNAKE--GAME------------\n";
+		std::cout << "1) Play\n";
+		std::cout << "2) How to play\n";
+		std::cout << "3) Exit\n";
+		std::cout << "Enter your choice: ";
+		std::cin >> choice;
+
+		switch (choice) {
+			case 1:
+				play();
+				break;
+			case 2:
+				std::cout << "\n-------------HELP--------------------\nUse arrow keys to move and eat food\n";
+				break;
+			case 3:
+				std::cout << "\nThanks for playing :)\n";
+				break;
+			default:
+				std::cout << "Invalid choice!\n";
+				break;
+		}
+	} while (choice != 3);
 }
 
 Game::~Game() {
@@ -15,7 +38,8 @@ Game::~Game() {
 }
 
 void Game::play() {
-	//TODO
+	reset();
+	gameLoop();
 }
 
 void Game::generateFood() {
