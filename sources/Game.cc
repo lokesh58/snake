@@ -1,13 +1,12 @@
 #include "../headers/Game.h"
 #include <iostream>
-#include <conio.h>
 
 namespace {
 	constexpr int width = 200;
 	constexpr int height = 200;
 }
 
-Game::Game() : head(nullptr), _ux(0, width), _uy(0, height) {
+Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false) {
 	//ctor
 }
 
@@ -28,36 +27,45 @@ void Game::generateFood() {
 
 void Game::reset() {
 	head = std::make_unique<Snake>(width/2, height/2);
+	dir = none;
+	gameOver = false;
 	generateFood();
 }
 
 void Game::gameLoop() {
-	bool gameOver = false;
-
 	while (!gameOver) {
 		input();
+		logic();
 		display();
 	}
 }
 
 void Game::input() {
-	if (kbhit()) {
-		switch(getch()) {
-			case 'a':
-			case 'A':
-				head->move(-1, 0);
+	if (1/*if a key is hit*/) {
+		switch(std::cin.get()) {
+			case 75:
+				if (dir != right) {
+					dir = left;
+				}
 				break;
-			case 'd':
-			case 'D':
-				head->move(1, 0);
+			case 77:
+				if (dir != left) {
+					dir = right;
+				}
 				break;
-			case 'w':
-			case 'W':
-				head->move(0, -1);
+			case 72:
+				if (dir != down) {
+					dir = up;
+				}
 				break;
-			case 's':
-			case 'S':
-				head->move(0, 1);
+			case 80:
+				if (dir != up) {
+					dir = down;
+				}
+				break;
+			case 'x':
+			case 'X':
+				gameOver = true;
 				break;
 			default:
 				break;
@@ -65,8 +73,12 @@ void Game::input() {
 	}
 }
 
-void Game::display() {
+void Game::logic() {
+	//TODO
+}
 
+void Game::display() {
+	//TODO
 }
 
 int Game::getRandomX() {
