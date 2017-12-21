@@ -68,22 +68,26 @@ void Game::input() {
 	char ch;
 	if ((ch = std::cin.get())/*if a key is hit*/) {
 		switch(ch) {
-			case 75:
+			case 'A':
+			case 'a':
 				if (dir != right) {
 					dir = left;
 				}
 				break;
-			case 77:
+			case 'D':
+			case 'd':
 				if (dir != left) {
 					dir = right;
 				}
 				break;
-			case 72:
+			case 'W':
+			case 'w':
 				if (dir != down) {
 					dir = up;
 				}
 				break;
-			case 80:
+			case 'S':
+			case 's':
 				if (dir != up) {
 					dir = down;
 				}
