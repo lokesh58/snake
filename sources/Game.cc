@@ -51,6 +51,8 @@ void Game::generateFood() {
 
 void Game::reset() {
 	head = std::make_unique<Snake>(width/2, height/2);
+	head->addTail();
+	head->addTail();
 	dir = none;
 	gameOver = false;
 	score = 0;
