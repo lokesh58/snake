@@ -91,7 +91,7 @@ void Game::input() {
 				break;
 			case 'S':
 			case 's':
-				if (dir != up) {
+				if (dir != up && dir != none) {
 					dir = down;
 				}
 				break;
