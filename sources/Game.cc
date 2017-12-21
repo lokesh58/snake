@@ -99,7 +99,31 @@ void Game::input() {
 }
 
 void Game::logic() {
-	//TODO
+	//Move
+	switch (dir) {
+		case up:
+			head->move(0, -1);
+			break;
+		case down:
+			head->move(0, 1);
+			break;
+		case left:
+			head->move(-1, 0);
+			break;
+		case right:
+			head->move(1, 0);
+			break;
+		default:
+			break;
+	}
+
+	//Eat food
+	if (head->getX() == foodX && head->getY() == foodY) {
+		head->addTail();
+		generateFood();
+	}
+
+	//Rest later
 }
 
 void Game::display() {
