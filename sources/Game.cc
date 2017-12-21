@@ -1,5 +1,6 @@
 #include "../headers/Game.h"
 #include <iostream>
+#include <cstdlib>
 
 namespace {
 	constexpr int width = 20;
@@ -9,6 +10,7 @@ namespace {
 Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false), score(0) {
 	int choice;
 	do {
+		system("clear");
 		std::cout << "\n----------WELCOME--TO--SNAKE--GAME------------\n";
 		std::cout << "1) Play\n";
 		std::cout << "2) How to play\n";
@@ -138,6 +140,7 @@ void Game::logic() {
 }
 
 void Game::display() {
+	system("clear");
 	for (int i = 0; i < width+2; ++i) {
 		std::cout << '#';
 	}
