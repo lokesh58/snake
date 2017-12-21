@@ -6,7 +6,7 @@ namespace {
 	constexpr int height = 20;
 }
 
-Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false) {
+Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false), score(0) {
 	int choice;
 	do {
 		std::cout << "\n----------WELCOME--TO--SNAKE--GAME------------\n";
@@ -53,6 +53,7 @@ void Game::reset() {
 	head = std::make_unique<Snake>(width/2, height/2);
 	dir = none;
 	gameOver = false;
+	score = 0;
 	generateFood();
 }
 
@@ -125,9 +126,13 @@ void Game::logic() {
 	if (head->getX() == foodX && head->getY() == foodY) {
 		head->addTail();
 		generateFood();
+		score += 10;
 	}
 
-	//Rest later
+	//Condition for getting out
+	if ((head->checkTail(head->getX(), head->getY())) || head->getX() < 0 || head->getX() >= width || head->getY() < 0 || head->getY() >= height) {
+		gameOver = true;
+	}
 }
 
 void Game::display() {
@@ -155,7 +160,7 @@ void Game::display() {
 	for (int i = 0; i < width+2; ++i) {
 		std::cout << '#';
 	}
-	std::cout << '\n';
+	std::cout << "\nScore: " << score << '\n';
 }
 
 int Game::getRandomX() {
