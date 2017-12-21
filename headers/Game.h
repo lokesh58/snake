@@ -30,6 +30,7 @@ class Game {
 		int foodX, foodY;
 		Direction dir;
 		bool gameOver;
+		int score;
 
 		std::uniform_int_distribution<int> _ux, _uy;
 		std::default_random_engine _e;
