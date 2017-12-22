@@ -7,10 +7,16 @@ namespace {
 	constexpr int height = 20;
 }
 
+#ifdef _WIN32
+	const char* command = "cls";
+#else
+	const char* command = "clear";
+#endif //_WIN32
+
 Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false), score(0) {
 	int choice;
 	do {
-		system("clear");
+		system(command);
 		std::cout << "\n----------WELCOME--TO--SNAKE--GAME------------\n";
 		std::cout << "1) Play\n";
 		std::cout << "2) How to play\n";
