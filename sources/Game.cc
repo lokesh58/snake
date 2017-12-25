@@ -30,6 +30,8 @@ Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver
 				break;
 			case 2:
 				std::cout << "\n-------------HELP--------------------\nUse arrow keys to move and eat food\n";
+				std::cout << "\nPress any key to return to main menu ...";
+				//getchar(); need something here it doesn't work
 				break;
 			case 3:
 				std::cout << "\nThanks for playing :)\n";
