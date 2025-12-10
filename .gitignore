@@ -1,3 +1,4 @@
 snake
 *.o
 headers/*.gch
+headers/*.pch

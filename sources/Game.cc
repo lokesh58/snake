@@ -1,6 +1,17 @@
 #include "../headers/Game.h"
 #include <iostream>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
+
+#ifdef _WIN32
+	#include <conio.h>
+	#include <windows.h>
+#else
+	#include <termios.h>
+	#include <unistd.h>
+	#include <fcntl.h>
+#endif
 
 namespace {
 	constexpr int width = 20;
@@ -12,6 +23,53 @@ namespace {
 #else
 	const char* command = "clear";
 #endif //_WIN32
+
+// Non-blocking input functions
+#ifdef _WIN32
+	bool kbhit() {
+		return _kbhit();
+	}
+
+	char getch() {
+		return _getch();
+	}
+#else
+	bool kbhit() {
+		int ch = getchar();
+		if (ch != EOF) {
+			ungetc(ch, stdin);
+			return true;
+		}
+		return false;
+	}
+
+	char getch() {
+		return getchar();
+	}
+
+	void setNonBlockingInput(bool enable) {
+		static struct termios old_termios, new_termios;
+		static int old_flags;
+
+		if (enable) {
+			// Save current terminal settings
+			tcgetattr(STDIN_FILENO, &old_termios);
+			new_termios = old_termios;
+
+			// Disable canonical mode and echo
+			new_termios.c_lflag &= ~(ICANON | ECHO);
+			tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+
+			// Set stdin to non-blocking
+			old_flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+			fcntl(STDIN_FILENO, F_SETFL, old_flags | O_NONBLOCK);
+		} else {
+			// Restore original terminal settings
+			tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
+			fcntl(STDIN_FILENO, F_SETFL, old_flags);
+		}
+	}
+#endif
 
 Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver(false), score(0) {
 	int choice;
@@ -31,7 +89,8 @@ Game::Game() : head(nullptr), _ux(0, width), _uy(0, height), dir(none), gameOver
 			case 2:
 				std::cout << "\n-------------HELP--------------------\nUse arrow keys to move and eat food\n";
 				std::cout << "\nPress any key to return to main menu ...";
-				//getchar(); need something here it doesn't work
+				std::cin.ignore(); // Clear any remaining input
+				std::cin.get(); // Wait for user input
 				break;
 			case 3:
 				std::cout << "\nThanks for playing :)\n";
@@ -49,7 +108,16 @@ Game::~Game() {
 
 void Game::play() {
 	reset();
+
+#ifndef _WIN32
+	setNonBlockingInput(true);
+#endif
+
 	gameLoop();
+
+#ifndef _WIN32
+	setNonBlockingInput(false);
+#endif
 }
 
 void Game::generateFood() {
@@ -74,12 +142,15 @@ void Game::gameLoop() {
 		input();
 		logic();
 		display();
+
+		// Add delay to control game speed (150ms)
+		std::this_thread::sleep_for(std::chrono::milliseconds(150));
 	}
 }
 
 void Game::input() {
-	char ch;
-	if ((ch = std::cin.get())/*if a key is hit*/) {
+	if (kbhit()) {
+		char ch = getch();
 		switch(ch) {
 			case 'A':
 			case 'a':
